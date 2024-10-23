@@ -6,7 +6,7 @@ const client = new Client({
   disableEveryone: true,
 });
 
-const owner_id = "637281836048842757"; // Replace with your own ID
+const owner_id = "637281836048842757";
 
 client.on("ready", async () => {
   console.clear();
@@ -19,17 +19,15 @@ client.on("ready", async () => {
   });
 });
 
-// Event triggered when the bot is added to a new server (guild)
 client.on("guildCreate", (guild) => {
   const thankYouEmbed = new MessageEmbed()
     .setColor("#00FF00")
     .setTitle("Thank You for Adding Me!")
     .setDescription(
-      `Hello! Myself Akane I am here to assist you with your questions and have fun in ***${guild.name}***. Ping me or use '!' prefix to interact with me. 🤖`
+      `Hello! I'm Akane, here to help you with your questions and have fun in ***${guild.name}***. Ping me or use '!' prefix to interact with me. 🤖`
     )
     .setThumbnail(client.user.displayAvatarURL());
 
-  // Find the first text channel where the bot can send messages
   const defaultChannel = guild.channels.cache.find(
     (channel) =>
       channel.type === "text" &&
@@ -48,8 +46,7 @@ client.on("guildCreate", (guild) => {
 client.on("message", async (message) => {
   if (!message.guild || message.author.bot) return;
 
-  // Check if the message starts with '!' or the bot is mentioned
-  const isPrefixed = message.content.startsWith("!"); // Check for '!' prefix
+  const isPrefixed = message.content.startsWith("!");
   const mentionsBot = message.mentions.users.has(client.user.id);
 
   if (!isPrefixed && !mentionsBot) return;
@@ -69,7 +66,7 @@ client.on("message", async (message) => {
       if (owner) {
         const embed = new MessageEmbed()
           .setColor("#00FF00")
-          .setDescription(`Lord ${owner.tag} is My Developer`);
+          .setDescription(`My developer is ${owner.tag}`);
         return message.channel.send(embed);
       }
     }
@@ -81,7 +78,7 @@ client.on("message", async (message) => {
         message.content
       )}`
     );
-    message.channel.send(res.data.cnt); // Send the response from the Brainshop API to the channel
+    message.channel.send(res.data.cnt);
   } catch (error) {
     errorEmbed("Bot error, please try again!", message);
   }
